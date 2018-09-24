@@ -10,8 +10,8 @@ int main(int argc, char **argv) {
   // Create a NodeHandle, This is the object used to interact with roscore (set up publishers and subscribers)
   ros::NodeHandle nh;
 
-  // Creates a publisher, object name chatter_pub, topic name chatter, type String, queue size 1000
-  ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("chatter", 1000);
+  // Creates a publisher, object name chatter_pub, topic name chatter, type String, queue size 1
+  ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("chatter", 1);
 
   // Creates a rate, this object will be used to later to slow down the node when publishing.
   ros::Rate loop_rate(10);
@@ -25,17 +25,14 @@ int main(int argc, char **argv) {
     // Creates a String message
     std_msgs::String msg;
 
-    // Create a string stream, essentially a string that I can add more characters to
-    std::stringstream ss;
-
-    // adds the string hello world and the current count to the string stream
-    ss << "hello world " << count;
+    // adds the string hello world and the current count to a string
+    std::string s = "hello world " + std::to_string(count);
 
     // Sets the String message message to the string that I have created in the above line
-    msg.data = ss.str();
+    msg.data = s;
 
     // prints out to the terminal the string I put in the message
-    ROS_INFO("%s", msg.data.c_str());
+    ROS_INFO_STREAM(msg.data);
 
     // publishes the message into the ros system using the chatter publisher, therefore it will be published on the chatter topic with a queue size of 1000
     chatter_pub.publish(msg);

@@ -12,7 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   laser_geometry
   tf)
 
-find_package(PCL REQUIRED filters)
+find_package(PCL REQUIRED)
 
 catkin_package(
   CATKIN_DEPENDS roscpp std_msgs hal_msgs

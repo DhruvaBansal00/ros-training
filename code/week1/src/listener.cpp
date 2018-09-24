@@ -5,7 +5,8 @@
 void chatterCallback(std_msgs::String msg)
 {
   // prints outs to the terminal what in the message
-  ROS_INFO("I heard %s", msg.data.c_str());
+  std::string s = msg.data;
+  ROS_INFO_STREAM("I heard " << s);
 }
 
 
@@ -17,8 +18,8 @@ int main(int argc, char **argv)
   // Create a NodeHandle, This is the object used to interact with roscore (set up publishers and subscribers)
   ros::NodeHandle nh;
 
-  // Creates a subscriber object called sub, it listens to topic chatter with a queue size of 1000, and tells ros what method it should call with the data chatterCallback method.
-  ros::Subscriber sub = nh.subscribe("chatter", 1000, chatterCallback);
+  // Creates a subscriber object called sub, it listens to topic chatter with a queue size of 1, and tells ros what method it should call with the data chatterCallback method.
+  ros::Subscriber sub = nh.subscribe("chatter", 1, chatterCallback);
 
   // tells ROS to handle callbacks indefinitely
   ros::spin();
